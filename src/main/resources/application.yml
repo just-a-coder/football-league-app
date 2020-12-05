@@ -2,6 +2,9 @@ spring:
   profiles:
     active: local
 
+server:
+  port: 8090
+
 config:
   api:
     baseUrl: https://apiv2.apifootball.com/
