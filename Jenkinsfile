@@ -8,13 +8,6 @@ pipeline {
   stages {
 
     stage('Build') {
-      agent {
-        docker {
-          image 'openjdk:11'
-          args '-v "$PWD":/app'
-          reuseNode true
-        }
-      }
       steps {
         echo 'Building'
         sh './gradlew clean build'
@@ -31,6 +24,22 @@ pipeline {
           }
         }
       }
+    }
+
+    stage('Build Docker image') {
+        steps {
+            sh './gradlew docker'
+        }
+    }
+    
+    stage('Push Docker image') {
+        environment {
+            DOCKER_HUB_LOGIN = credentials('docker-hub')
+        }
+        steps {
+            sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
+            sh './gradlew dockerPush'
+        }
     }
 
     stage('Deploy') {
