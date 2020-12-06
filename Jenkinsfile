@@ -17,10 +17,6 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building'
-        withGradle() {
-          withGradle()
-        }
-
       }
     }
 
