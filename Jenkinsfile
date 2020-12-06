@@ -30,7 +30,7 @@ pipeline {
 
       stage ('Build & Push docker image') {
           steps {
-              withDockerRegistry(credentialsId: DOCKER_HUB_LOGIN, url: 'https://hub.docker.com/') {
+              withDockerRegistry(credentialsId: $DOCKER_HUB_LOGIN, url: 'https://hub.docker.com/') {
                   sh 'docker push justacoder7/football-league-app'
               }
 
