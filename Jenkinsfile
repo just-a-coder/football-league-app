@@ -33,7 +33,6 @@ pipeline {
 //               withDockerRegistry(credentialsId: DOCKER_HUB_LOGIN, url: 'https://hub.docker.com/') {
 //                   sh 'docker push justacoder7/football-league-app'
 //               }
-
               sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
               sh './gradlew dockerPush'
           }
