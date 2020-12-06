@@ -10,7 +10,7 @@ pipeline {
     stage('Compile') {
       steps {
         echo 'Compiling'
-        gradlew('clean', 'classes')
+        gradlew('clean')
         }
       }
 
