@@ -6,17 +6,11 @@ pipeline {
   }
 
   stages {
-
-    stage('Compile') {
-      steps {
-        echo 'Compiling'
-        gradlew('clean')
-        }
-      }
-
+  
     stage('Build') {
       steps {
         echo 'Building'
+        sh './gradlew clean build'
       }
     }
 
