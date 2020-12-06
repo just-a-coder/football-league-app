@@ -1,6 +1,13 @@
 pipeline {
   agent any
   stages {
+    stage('Compile') {
+      steps {
+        echo 'Compiling'
+        gradlew('clean', 'classes')
+        }
+      }
+
     stage('Build') {
       steps {
         echo 'Building'
