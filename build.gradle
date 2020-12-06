@@ -1,3 +1,5 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
 plugins {
 	id 'org.springframework.boot' version '2.2.5.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
@@ -53,6 +55,6 @@ docker {
 dockerRun {
 	name project.name
 	image imageName
-	ports '8090:8080'
+	ports '8080:8080'
 	clean true
 }
