@@ -6,37 +6,29 @@ pipeline {
   }
 
   stages {
-
-    stage ('Test & Build Artifact') {
-        agent {
-            docker {
-                image 'openjdk:11'
-                args '-v "$PWD":football-league-app'
-                reuseNode true
-            }
-        }
-        steps {
-            sh './gradlew clean build'
-        }
-    }
-
-//     stage('Unit & Integration Tests') {
-//       steps {
-//         script {
-//           try {
-//              sh './gradlew clean test --no-daemon' //run a gradle task
-//              } finally {
-//              junit '**/build/test-results/test/*.xml' //make the junit test results available in any case (success & failure)
-//           }
-//         }
-//       }
-//     }
-
-    stage('Deploy') {
-      steps {
-        echo 'Deploy'
+      stage('Build') {
+          steps {
+              sh './gradlew assemble'
+          }
       }
-    }
-
+      stage('Test') {
+          steps {
+              sh './gradlew test'
+          }
+      }
+      stage('Build Docker image') {
+          steps {
+              sh './gradlew docker'
+          }
+      }
+      stage('Push Docker image') {
+          environment {
+              DOCKER_HUB_LOGIN = credentials('docker-hub')
+          }
+          steps {
+              sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
+              sh './gradlew dockerPush'
+          }
+      }
   }
 }
