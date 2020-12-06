@@ -6,7 +6,7 @@ pipeline {
   }
 
   stages {
-  
+
     stage('Build') {
       steps {
         echo 'Building'
@@ -14,9 +14,15 @@ pipeline {
       }
     }
 
-    stage('Test') {
+    stage('Unit & Integration Tests') {
       steps {
-        echo 'Test'
+        script {
+          try {
+             sh './gradlew clean test --no-daemon' //run a gradle task
+             } finally {
+             junit '**/build/test-results/test/*.xml' //make the junit test results available in any case (success & failure)
+          }
+        }
       }
     }
 
