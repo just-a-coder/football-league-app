@@ -1,7 +1,12 @@
 pipeline {
   agent any
+
+  triggers {
+    pollSCM('*/5 * * * *')
+  }
+
   stages {
-  
+
     stage('Compile') {
       steps {
         echo 'Compiling'
