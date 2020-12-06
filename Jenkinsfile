@@ -4,17 +4,19 @@ pipeline {
     triggers {
         pollSCM '* * * * *'
     }
-    stages {
     
-        stage('Build') {
-            steps {
-                sh './gradlew assemble'
-            }
-        }
+    stages {
 
-        stage('Test') {
+        stage ('Test and Build') {
+            agent {
+                docker {
+                    image 'openjdk:11'
+                    args '-v "$PWD":/app'
+                    reuseNode true
+                }
+            }
             steps {
-                sh './gradlew test'
+                sh './gradlew clean build'
             }
         }
 
