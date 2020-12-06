@@ -2,7 +2,6 @@ pipeline {
   agent any
 
     environment {
-        DOCKER_HUB_LOGIN = credentials('docker-hub')
         DOCKER_HUB_LOGIN_USR = credentials('dockerhub-username')
         DOCKER_HUB_LOGIN_PSW = credentials('dockerhub-password')
     }
@@ -29,12 +28,14 @@ pipeline {
       }
 
       stage ('Build & Push docker image') {
-          steps {
-              withDockerRegistry(credentialsId: $DOCKER_HUB_LOGIN, url: 'https://hub.docker.com/') {
-                  sh 'docker push justacoder7/football-league-app'
-              }
-
+        environment {
+            DOCKER_HUB_LOGIN = credentials('docker-hub')
+        }
+        steps {
+          withDockerRegistry(credentialsId: $DOCKER_HUB_LOGIN, url: 'https://hub.docker.com/') {
+          sh 'docker push justacoder7/football-league-app'
           }
+        }
       }
 
 //       stage('Push Docker image') {
