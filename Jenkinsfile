@@ -27,14 +27,12 @@ pipeline {
     stage('Test') {
       steps {
         echo 'Test'
-        sh 'jenkins/test-all.sh'
       }
     }
 
     stage('Deploy') {
       steps {
         echo 'Deploy'
-        sh 'jenkins/deploy.sh'
       }
     }
 
