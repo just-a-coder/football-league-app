@@ -32,7 +32,7 @@ pipeline {
             DOCKER_HUB_LOGIN = credentials('docker-hub')
         }
         steps {
-          withDockerRegistry(credentialsId: $DOCKER_HUB_LOGIN, url: 'https://hub.docker.com/') {
+          withDockerRegistry(credentialsId: $docker-hub, url: 'https://hub.docker.com/') {
           sh 'docker push justacoder7/football-league-app'
           }
         }
