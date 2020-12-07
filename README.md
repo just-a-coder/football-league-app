@@ -4,19 +4,14 @@ This App will show Football League Standings...
 -------------------------------------------------------------------------------------
 How To Run App
 
-Step 1: Inside Project There is one folder : application_docker_image
-Inside that there is one tar file(football-league-app) that is actually docker image of the application.
-Copy/Use that Tar file.
+Step 1: Build The Application
+docker build --build-arg JAR_FILE=build/libs/*.jar -t justacoder7/football-league-app .
 
-Step 2: Loading The Tar File into Local Docker
-Start Local Docker and Execute:
-docker load -i football-league-app
-
-Step 3: Run The Application
+Step 2: Run The Application
 Execute:
 docker run -p 8090:8080 -t justacoder7/football-league-app .
 
-Step 4:
+Step 3:
 Hit URL:
 http://localhost:8090/api/v1/team_standing?countryName=England&leagueName=Championship&teamName=Watford
 
@@ -31,12 +26,6 @@ Response(In Snake Case)
     "team_name": "Watford",
     "overall_position": 7
 }
-
-----------------------------------------------
-Otherwise You can Build Image and Run The App
-docker build --build-arg JAR_FILE=build/libs/*.jar -t justacoder7/football-league-app .
-docker run -p 8090:8080 -t justacoder7/football-league-app .
-
 
 
 Problem Statement
